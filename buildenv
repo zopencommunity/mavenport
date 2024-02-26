@@ -63,8 +63,6 @@ zopen_maven_install()
 
 zopen_append_to_env()
 {
-echo "here-at-append_to_env $PWD"
-
 cat <<ZZ
 MAVEN_HOME="\$PWD"
 ZZ
@@ -72,8 +70,6 @@ ZZ
 
 zopen_get_version()
 {
-  echo "here-at-get_version $PWD"
-
   MAVEN_DIR=$PWD
   export JAVA_HOME=$(dirname $(dirname $(/bin/type java | awk ' { print $3; }')))
   bash $("$MAVEN_DIR/bin/mvn" --version 2>&1 | head -1 | awk ' { print $3; } ')
