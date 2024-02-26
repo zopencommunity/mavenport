@@ -1,0 +1,78 @@
+# Update bump details accordingly. Use bump check to confirm.
+# bump: maven-version /MAVEN_VERSION="(.*)"/ https://maven.apache.org/download.cgi|re:/Download.([\d.]+)/$1/
+MAVEN_VERSION="3.9.6" # Specify a stable release
+
+export MAVEN_MAJOR_VERSION=$(echo "$MAVEN_VERSION" | cut -d '.' -f 1)
+export ZOPEN_STABLE_TAG="v${MAVEN_VERSION}"
+export ZOPEN_STABLE_URL="https://archive.apache.org/dist/maven/maven-${MAVEN_MAJOR_VERSION}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
+export ZOPEN_STABLE_DEPS="java bash"
+export ZOPEN_BUILD_LINE="STABLE"
+export ZOPEN_CATEGORIES="core"
+
+rm -f "apache-maven-${MAVEN_VERSION}"
+ln -s "apache-maven-${MAVEN_VERSION}" "apache-maven-${MAVEN_VERSION}-bin"
+
+zopen_init()
+{
+  echo "here-at-init $PWD"
+
+  mkdir -p $ZOPEN_INSTALL_DIR
+}
+
+zopen_check_results()
+{
+  dir="$1"
+  pfx="$2"
+  chk="$1/$2_check.log"
+
+  # Echo the following information to gauge build health
+  echo "actualFailures:0"
+  echo "totalTests:1"
+  echo "expectedFailures:0"
+  echo "expectedTotalTests:1"
+}
+
+export ZOPEN_CONFIGURE="skip"
+export ZOPEN_CONFIGURE_OPTS=""
+
+export ZOPEN_MAKE="skip"
+export ZOPEN_MAKE_OPTS=""
+
+export ZOPEN_CHECK="skip"
+export ZOPEN_CHECK_OPTS=""
+
+export ZOPEN_INSTALL="zopen_maven_install"
+
+zopen_maven_install()
+{
+  echo "here-at-maven_install $PWD"
+  echo "here-at-maven_install $ZOPEN_INSTALL_DIR"
+
+  mkdir -p "$ZOPEN_INSTALL_DIR/bin" "$ZOPEN_INSTALL_DIR/lib" "$ZOPEN_INSTALL_DIR/conf" "$ZOPEN_INSTALL_DIR/boot"
+  cp -r "$PWD/bin/" "$ZOPEN_INSTALL_DIR/bin/"
+  cp -r "$PWD/lib/" "$ZOPEN_INSTALL_DIR/lib/"
+  cp -r "$PWD/conf/" "$ZOPEN_INSTALL_DIR/conf/"
+  cp -r "$PWD/boot/" "$ZOPEN_INSTALL_DIR/boot/"
+  cp "$PWD/LICENSE" "$ZOPEN_INSTALL_DIR/"
+  cp "$PWD/NOTICE" "$ZOPEN_INSTALL_DIR/"
+  cp "$PWD/README.txt" "$ZOPEN_INSTALL_DIR/"
+  return 0
+}
+
+zopen_append_to_env()
+{
+echo "here-at-append_to_env $PWD"
+
+cat <<ZZ
+MAVEN_HOME="\$PWD"
+ZZ
+}
+
+zopen_get_version()
+{
+  echo "here-at-get_version $PWD"
+
+  MAVEN_DIR=$PWD
+  export JAVA_HOME=$(dirname $(dirname $(/bin/type java | awk ' { print $3; }')))
+  bash $("$MAVEN_DIR/bin/mvn" --version 2>&1 | head -1 | awk ' { print $3; } ')
+}
