@@ -3,4 +3,5 @@ log.DEV/
 log.STABLE/
 build/
 install/
+mavenport/
 apache-maven-*

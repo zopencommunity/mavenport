@@ -9,7 +9,8 @@ export ZOPEN_STABLE_DEPS="java bash"
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CATEGORIES="core"
 
-rm -f "apache-maven-${MAVEN_VERSION}"
+rm -f "apache-maven-${MAVEN_VERSION}-bin"
+rm -rf "apache-maven-${MAVEN_VERSION}"
 ln -s "apache-maven-${MAVEN_VERSION}" "apache-maven-${MAVEN_VERSION}-bin"
 
 zopen_init()
