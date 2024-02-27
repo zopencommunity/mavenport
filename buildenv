@@ -1,6 +1,6 @@
 # Update bump details accordingly. Use bump check to confirm.
 # bump: maven-version /MAVEN_VERSION="(.*)"/ https://maven.apache.org/download.cgi|re:/Download.([\d.]+)/$1/
-MAVEN_VERSION="3.9.6" # Specify a stable release
+MAVEN_VERSION="3.8.1" # Specify a stable release
 
 export MAVEN_MAJOR_VERSION=$(echo "$MAVEN_VERSION" | cut -d '.' -f 1)
 export ZOPEN_STABLE_TAG="v${MAVEN_VERSION}"
@@ -72,5 +72,5 @@ zopen_get_version()
 {
   MAVEN_DIR=$PWD
   export JAVA_HOME=$(dirname $(dirname $(/bin/type java | awk ' { print $3; }')))
-  bash $("$MAVEN_DIR/bin/mvn" --version 2>&1 | head -1 | awk ' { print $3; } ')
+  bash "$MAVEN_DIR/bin/mvn" --version 2>&1 | head -1 | awk ' { print $3; } '
 }
