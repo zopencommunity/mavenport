@@ -49,6 +49,12 @@ zopen_maven_install()
   echo "here-at-maven_install $PWD"
   echo "here-at-maven_install $ZOPEN_INSTALL_DIR"
 
+  #Higher version of maven tool is supporting m2.conf file in UTF-8
+  /bin/iconv -f ISO8859-1 -t UTF8 "$PWD/bin/m2.conf" > "$PWD/bin/m2.conf.utf8"
+  /bin/chtag -tc 1208 "$PWD/bin/m2.conf.utf8"
+  cp "$PWD/bin/m2.conf.utf8" "$PWD/bin/m2.conf" 
+  rm "$PWD/bin/m2.conf.utf8"
+
   mkdir -p "$ZOPEN_INSTALL_DIR/bin" "$ZOPEN_INSTALL_DIR/lib" "$ZOPEN_INSTALL_DIR/conf" "$ZOPEN_INSTALL_DIR/boot"
   cp -r "$PWD/bin/" "$ZOPEN_INSTALL_DIR/bin/"
   cp -r "$PWD/lib/" "$ZOPEN_INSTALL_DIR/lib/"
