@@ -1,5 +1,5 @@
 # bump: maven-version /MAVEN_VERSION="(.*)"/ https://maven.apache.org/download.cgi|re:/Maven.([\d.]+).is.the.latest/$1/
-MAVEN_VERSION="3.9.6" # Specify a stable release
+MAVEN_VERSION="3.9.7" # Specify a stable release
 
 export MAVEN_MAJOR_VERSION=$(echo "$MAVEN_VERSION" | cut -d '.' -f 1)
 export ZOPEN_STABLE_TAG="v${MAVEN_VERSION}"
