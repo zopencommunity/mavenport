@@ -4,7 +4,7 @@ MAVEN_VERSION="3.9.6" # Specify a stable release
 export MAVEN_MAJOR_VERSION=$(echo "$MAVEN_VERSION" | cut -d '.' -f 1)
 export ZOPEN_STABLE_TAG="v${MAVEN_VERSION}"
 export ZOPEN_STABLE_URL="https://archive.apache.org/dist/maven/maven-${MAVEN_MAJOR_VERSION}/${MAVEN_VERSION}/binaries/apache-maven-${MAVEN_VERSION}-bin.tar.gz"
-export ZOPEN_STABLE_DEPS="java bash curl"
+export ZOPEN_STABLE_DEPS="check_java bash curl"
 export ZOPEN_BUILD_LINE="STABLE"
 export ZOPEN_CATEGORIES="core"
 
