@@ -26,7 +26,9 @@ zopen build -vv
 See the [zopen porting guide](https://zopen.community/#/Guides/Porting) for more details.
 
 # Documentation
-
+Tip from a maven user:  
+If you tag your `pom.xml` files with `ISO8859-1`, then `maven-install-plugin` will copy that file to the `.m2` cache, converting it to `IBM-1047` and `mvn deploy` will fail with a `409`.  
+Tag your files UTF-8 and DO NOT set `_BPXK_AUTOCVT=MUST`.
 
 # Troubleshooting
 TBD
